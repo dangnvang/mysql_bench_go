@@ -30,7 +30,7 @@ func main() {
 	fmt.Print("starting benchmark w/ GOMAXPROCS =", numProcs, "\n")
 
 	var queries uint64 = 0
-	var numThreads int = 8
+	var numThreads int = 32
 
 	var wg sync.WaitGroup
 	wg.Add(numThreads)
@@ -46,7 +46,7 @@ func main() {
 	for threadNum := 1; threadNum <= numThreads; threadNum++ {
 		go func() {
 			defer wg.Done()
-			for i := 1; i <= 10000; i++ {
+			for i := 1; i <= 100000; i++ {
 				rows, err := db.Query("SELECT 1") // WHERE number = 13
 				if err != nil {
 					panic(err.Error()) // proper error handling instead of panic in your app
